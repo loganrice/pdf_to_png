@@ -1,0 +1,11 @@
+%div.container
+  %div.panel.panel-primary
+    %div.panel-heading
+      %h3.panel-title
+        Submit a Claim
+    %div.panel-body
+      %ul.list-group
+        - @claim.attributes.each_pair do |name, value|
+          %li.list-group-item
+            %strong=name
+            = value

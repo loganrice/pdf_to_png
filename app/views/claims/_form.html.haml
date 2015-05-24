@@ -1,0 +1,17 @@
+%div.container
+  %div.panel.panel-primary
+    %div.panel-heading
+      %h3.panel-title
+        Submit a Claim
+    %div.panel-body
+      
+      = bootstrap_form_for(@claim) do |f|
+        = f.text_field :client_first_name
+        = f.text_field :client_last_name
+
+        = f.fields_for :vehicle_photos do |builder|
+          = render "vehicle_photo_fields", f: builder
+        = link_to_add_fields "Add Vehicle Photo", f, :vehicle_photos
+
+        = f.submit
+            
