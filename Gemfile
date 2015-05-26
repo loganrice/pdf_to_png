@@ -1,9 +1,14 @@
 source 'https://rubygems.org'
+
 ruby "2.1.6"
+
 
 gem 'carrierwave'
 gem 'fog'
 gem 'mini_magick'
+
+gem 'rmagick', '~> 2.15.0'
+
 gem 'shoulda'
 gem 'pry'
 gem 'bootstrap_form'
