@@ -38,10 +38,9 @@ class VehicleUploader < CarrierWave::Uploader::Base
 
   	def duplicate
   		new_record = self.dup
-  		old_filename = new_record.filename
-  		new_filename = old_filename + "_converted"
-  		new_record.update_attributes(file: new_filename)
-  		new_record.save
+  		new_record.chomp(File.extname(super)) + '_converted.png'
+  		new_record.store
+  		# new_record.save ----- if line 45 doesn't work try this one instead
   	end
 
 end
