@@ -13,15 +13,23 @@ class VehicleUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [50, 50]
   end
 
-	version :pdf_thumb, :if => :pdf? do
+	version :pdf_thumb, :if => :pdf_and_not_dublicated? do
 	     process :duplicate
 	     process :convert => 'png'
 	     process :resize_to_limit => [120, 120]
 	     process :filename
 	  end
 
-	  def pdf?(new_file)
-	    new_file.content_type.include? "/pdf"
+	  def pdf_and_not_duplicated?(new_file)
+	    if new_file.content_type.include? "/pdf" 
+	    	unless new_file.content_type.include? "_converted"
+	    		true
+	    	else
+	    		false
+	    	end
+	    else
+	    	false
+	    end
 	  end
 
 	  def filename
@@ -30,6 +38,9 @@ class VehicleUploader < CarrierWave::Uploader::Base
 
   	def duplicate
   		new_record = self.dup
+  		old_filename = new_record.filename
+  		new_filename = old_filename + "_converted"
+  		new_record.update_attributes(file: new_filename)
   		new_record.save
   	end
 
