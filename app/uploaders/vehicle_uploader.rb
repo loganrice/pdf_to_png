@@ -13,7 +13,7 @@ class VehicleUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [50, 50]
   end
 
-	version :pdf_thumb, :if => :pdf_and_not_dublicated? do
+	version :pdf_thumb, :if => :pdf_and_not_duplicated? do
 	     process :duplicate
 	     process :convert => 'png'
 	     process :resize_to_limit => [120, 120]
